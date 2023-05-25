@@ -1,0 +1,6 @@
+﻿@foreach (var item in Model)
+{
+    <a href="@Url.Action("SPTheoNXB","BookStore",new { id=item.MaNXB})" class="nav-item nav-link">
+        @item.TenNXB
+    </a>
+}

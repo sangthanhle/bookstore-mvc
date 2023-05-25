@@ -1,0 +1,91 @@
+﻿@using bookstore.Models;
+@model List<Giohang>
+
+@{
+    ViewBag.Title = "DatHang";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+@{
+    KHACHHANG kh = (KHACHHANG)Session["Taikhoan"];
+}
+
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Checkout</h1>
+        <div class="d-inline-flex">
+            <p class="m-0"><a href="">Home</a></p>
+            <p class="m-0 px-2">-</p>
+            <p class="m-0">Checkout</p>
+        </div>
+    </div>
+</div>
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-8">
+            <div class="mb-4">
+                <h4 class="font-weight-semi-bold mb-4" style="text-align:center">Billing Address</h4>
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary(true)
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>Họ tên khách hàng :</label>
+                            <td class="form-control"> @kh.HoTen </td>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Địa chỉ :</label>
+                            <td class="form-control"> @kh.DiachiKH </td>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Điện thoại :</label>
+                            <td class="form-control"> @kh.DienthoaiKH </td>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Ngày đặt</label>
+                            <td class="form-control"> @DateTime.Now.ToShortDateString()</td>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Ngày giao hàng</label>
+                            <input class="form-control" type="date" name="Ngaygiao" />
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label></label>
+                            <input class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" type="submit" value="ĐẶT HÀNG">
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card border-secondary mb-5">
+                <div class="card-header bg-secondary border-0">
+                    <h4 class="font-weight-semi-bold m-0">Order Total</h4>
+                </div>
+                <div class="card-body">
+                    <h5 class="font-weight-medium mb-3">Products</h5>
+                    @foreach (var item in Model)
+                    {
+                        <div class="d-flex justify-content-between">
+                            <p>@item.sTensach</p>
+                            <p>@String.Format("{0:0,0}", item.dDongia) VNĐ </p>
+                        </div>
+                    }
+                </div>
+
+                <div class="card-footer border-secondary bg-transparent">
+                    <div class="d-flex justify-content-between mt-2">
+                        <h5 class="font-weight-bold">Tổng</h5>
+                        <h5 class="font-weight-bold">@String.Format("{0:0,0}", ViewBag.Tongtien) VNĐ</h5>
+                    </div>
+                </div>
+            </div>
+            @*<div class="card border-secondary mb-5">
+                <div class="card-footer border-secondary bg-transparent">
+                 <input class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" type="submit" value="ĐẶT HÀNG">
+                </div>
+                 </div>*@
+        </div>
+
+    </div>
+</div>
